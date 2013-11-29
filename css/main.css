@@ -1,0 +1,223 @@
+/****************************************************************************
+ INDEX
+*****************************************************************************/
+
+body {
+	background: url(../img/wood.jpg);
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
+}
+
+.header {
+	padding: 20px;
+	margin: auto 0px;
+}
+
+.titleContainer {
+	background-color: rgba(0,0,0,.5);
+	margin-top: 100px;
+}
+
+#title {
+	padding: 125px 20px;
+	padding-left: 10px;
+	background-color: #303030;
+	background: url(../img/debut_dark.png) repeat;
+	
+	color: white;
+	border: 10px solid white;
+	z-index: 1;
+	
+	/*
+	-webkit-box-shadow: 2px 2px 5px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    2px 2px 5px rgba(50, 50, 50, 0.75);
+	box-shadow:         2px 2px 5px rgba(50, 50, 50, 0.75);
+	*/
+}
+
+	#title h1 { font-weight: bold; }
+	
+	#title h1, 
+	#title p {
+		font-family: 'Cinzel', serif;
+	}
+
+#money img {
+	display: block;
+    margin: 50px 0 0 -75px;
+    z-index: 0;
+}
+
+
+/****************************************************************************
+ PROFILE
+*****************************************************************************/
+.profile {
+	padding-top: 50px;
+}
+
+.profile h1,
+.profile p {
+	color: white;
+}
+
+.profile h1 {
+	border-bottom: 1px solid white;
+}
+
+.progress {
+	height: 100px;
+	margin-bottom: 0;
+	border-radius: 10px;
+	/*background-color: #c4ffc4;*/
+}
+
+.content {
+	background-color: grey;
+	border: 1px solid black;
+	padding: 10px 30px 30px;
+	margin-bottom: 20px;
+}
+
+
+/****************************************************************************
+ BOOTSTRAP OVERRIDE
+*****************************************************************************/
+
+/*************** FORMS *******************/
+.form-signin h2, .form-signup h2 {
+	color: black;
+	font-weight:bold;
+}
+
+.form-signin .form-control,
+.form-signup  .form-control {
+	position: relative;
+	font-size: 16px;
+	height: auto;
+	padding: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.form-signin .form-control:focus,
+.form-signup .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="text"],
+.form-signin input[type="email"],
+.form-signup input[type="text"],
+.form-signup input[type="email"]  {
+	margin-bottom: -1px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.form-signin input[type="password"],
+.form-signup input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.form-signup input#signup-name,
+.form-signup input#signup-email {
+	margin-bottom: -1px;
+	border-radius: 0;
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+.input-group .input-group-addon:nth-child(2) {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0;
+}
+
+.input-group input {
+    width: 100px;
+}
+
+/*************** NAVBAR *******************/
+.navbar-inverse {
+	background: url(../img/debut_dark.png) repeat;
+}
+
+.navbar-brand {
+  font-family: 'Cinzel', serif;
+  font-weight: bold;
+}
+
+/*************** PROGRESS BARS *******************/
+.progress-bar-danger {
+	background-color: #dd514c;
+	background-image: -moz-linear-gradient(top, #ee5f5b, #c43c35);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#c43c35));
+	background-image: -webkit-linear-gradient(top, #ee5f5b, #c43c35);
+	background-image: -o-linear-gradient(top, #ee5f5b, #c43c35);
+	background-image: linear-gradient(to bottom, #ee5f5b, #c43c35);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffc43c35', GradientType=0);
+}
+
+.progress-bar-warning {
+	background-color: #faa732;
+	background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+	background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+	background-image: -o-linear-gradient(top, #fbb450, #f89406);
+	background-image: linear-gradient(to bottom, #fbb450, #f89406);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
+}
+
+.progress-bar-success {
+	background-color: #5eb95e;
+	background-image: -moz-linear-gradient(top, #62c462, #57a957);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#57a957));
+	background-image: -webkit-linear-gradient(top, #62c462, #57a957);
+	background-image: -o-linear-gradient(top, #62c462, #57a957);
+	background-image: linear-gradient(to bottom, #62c462, #57a957);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff57a957', GradientType=0);
+}
+
+
+/****************************************************************************
+ MEDIA QUERIES
+*****************************************************************************/
+
+@media (min-width: 768px){
+	.jumbotron h1,
+	.header h1 {
+		font-size: 63px;
+	}
+}
+
+@media (max-width: 768px){
+	#money img {
+		margin: -100px auto 0;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+	#money img {
+		margin: -100px 0 0 110px;
+	}
+	
+	.header {
+		max-width: 800px;
+		margin: auto;
+	}	
+}
+
