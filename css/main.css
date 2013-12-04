@@ -164,11 +164,6 @@ body {
 	border-radius: 0;
 }
 
-.input-group .input-group-addon:nth-child(2) {
-	  border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
 .input-group-addon {
   background: url(../img/classy_fabric.png) repeat;
   border-color: black;

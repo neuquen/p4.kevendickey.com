@@ -55,7 +55,9 @@
               <input type="text" class="form-control" id="otherIncome" />
             </div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block updateIncome" type="button" >Update</button>
+        <input type="text" class="form-control" name="income" id="total-income" />
+        <button class="btn btn-lg btn-primary btn-block updateIncome" type="submit" >Update</button>
+        <div id='results'></div>
     </form>
 
 			</div>

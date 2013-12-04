@@ -16,6 +16,13 @@ class profile_controller extends base_controller {
 		# Set up the view
 		$this->template->content = View::instance('v_profile_index');
 		$this->template->title = "Don't Budge";
+		
+		$client_files_body = Array(
+				"/js/jquery.form.js",
+				"/js/main.js"
+		);
+		
+		$this->template->client_files_body = Utils::load_client_files($client_files_body);
 		 
 		# Pass the data to the view
 		$this->template->content->user_name = $user_name;

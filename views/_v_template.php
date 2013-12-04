@@ -52,9 +52,6 @@
 	<?php endif; ?>
 	
 	<?php if(isset($content)) echo $content; ?>
-
-	<!-- Controller Specific JS -->
-	<?php if(isset($client_files_body)) echo $client_files_body; ?>
 	
 	<!-- jQuery/jQuery UI JS -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -65,6 +62,9 @@
 	
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
+	
+	<!-- Controller Specific JS -->
+	<?php if(isset($client_files_body)) echo $client_files_body; ?>
 	
 </body>
 </html>
