@@ -7,13 +7,15 @@
 		</p>
 	</div>
 
+
+	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="content">
 				<h2>Summary</h2>
-				<div class="progress">
+				<div class="progress text-center">
 					<div class="progress-bar progress-bar-success" role="progressbar">
-						<span id="output-expenses">$0.00</span>
+						<span id="output-expenses">$<?php echo $total['expenses']?></span>
 					</div>
 					<div class="progress-bar progress-bar-warning" role="progressbar">
 						<span>$0.00</span>
@@ -22,18 +24,20 @@
 						<span>$0.00</span>
 					</div>
 					<div class="progress-bar progress-bar-income" role="progressbar">
-						<span id="output-income">$0.00</span>
+						<span id="output-income">$<?php echo $total['income']?></span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+
 
 	<div class="row">
 		<div class="col-md-6">
 			<div class="content">
 				<h2>Income</h2>
-			<form class="form-income form-horizontal" role="form" method="post" action="/profile/add">
+			<form class="form-income form-horizontal" role="form" method="post" action="/profile/update">
         <div class="form-group">
             <label for="paycheck" class="control-label col-sm-3">Paycheck</label>
             <div class="input-group input-group-lg col-sm-9"> 
@@ -55,9 +59,9 @@
               <input type="text" class="form-control" id="otherIncome" />
             </div>
         </div>
-        <input type="text" class="form-control" name="income" id="total-income" />
+        <input type="text" class="form-control" name="income" id="total-income"/>
         <button class="btn btn-lg btn-primary btn-block updateIncome" type="submit" >Update</button>
-        <div id='results'></div>
+        <div class="resultsIncome"></div>
     </form>
 
 			</div>
@@ -66,7 +70,7 @@
 		<div class="col-md-6">
 			<div class="content">
 				<h2>Expenses</h2>
-			<form class="form-expenses form-horizontal" role="form">
+			<form class="form-expenses form-horizontal" role="form" method="post" action="/profile/update">
         <div class="form-group">
             <label for="" class="control-label col-sm-3">Rent/mortgage</label>
             <div class="input-group input-group-lg col-sm-9"> 
@@ -137,7 +141,9 @@
               <input type="text" class="form-control" id="" />
             </div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block updateExpenses" type="button" >Update</button>
+        <input type="text" class="form-control" name="expenses" id="total-expenses"/>
+        <button class="btn btn-lg btn-primary btn-block updateExpenses" type="submit" >Update</button>
+        <div class="resultsExpenses"></div>
     </form>
 				
 			</div>

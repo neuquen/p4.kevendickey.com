@@ -24,8 +24,13 @@ class profile_controller extends base_controller {
 		
 		$this->template->client_files_body = Utils::load_client_files($client_files_body);
 		 
+		# Grab total from DB
+		$q = "SELECT * FROM budgets WHERE user_id=".$this->user->user_id;
+		$total = DB::instance(DB_NAME)->select_row($q);
+		
 		# Pass the data to the view
 		$this->template->content->user_name = $user_name;
+		$this->template->content->total = $total;
 		 
 		# Display the view
 		echo $this->template;
@@ -61,7 +66,7 @@ class profile_controller extends base_controller {
 		}
 		# Fail
 		else {
-			//Router::redirect('/index/index/error'); /********************** CHANGE THIS ***************************/
+			Router::redirect('/'); /********************** CHANGE THIS ***************************/
 		}
 	}
 	
@@ -83,12 +88,11 @@ class profile_controller extends base_controller {
 	}
 
 	
-	public function add(){
+	public function update(){
 	
 		$_POST['user_id']  = $this->user->user_id;
 		$_POST['created']  = Time::now();
 		$_POST['modified'] = Time::now();
-	
 	
 		// Prevent XSS by converting special characters
 		function clean($string){
@@ -96,11 +100,56 @@ class profile_controller extends base_controller {
 		}
 	
 		# Allows you to clean an Array
-		$clean = array_map('clean', $_POST);
-	
+		$clean = array_map('clean', $_POST);		
+		
 		# Insert totals into database
-		DB::instance(DB_NAME)->insert('budgets', $clean);
+		DB::instance(DB_NAME)->update_or_insert_row('budgets', $clean);
+		
+		# Grab total from DB
+		//$total = Array();
+		$q = "SELECT * FROM budgets WHERE user_id=".$this->user->user_id;
+		$total = DB::instance(DB_NAME)->select_row($q);
+		
+		# Send back json results to the JS, formatted in json
+		echo json_encode($total);
 	}
+	
+	/*
+	public function insert_db($first, $last){
+		$insert = "INSERT INTO budgets
+		(first_name, last_name)
+		Values
+		('$first', '$last')";
+	
+		echo $insert;
+	
+		DB::instance(DB_NAME)->query($insert);
+		
+		
+		$select = "SELECT count(1)
+							 FROM budgets
+							 WHERE user_id =".$this->user->user_id;
+		
+		if($select == 0){
+				# Insert totals into database
+				DB::instance(DB_NAME)->insert('budgets', $clean);
+		} else {
+				# Update totals in database
+				
+		}
+		
+		
+				$q = "INSERT INTO budgets
+				  (user_id, income)
+				VALUES
+				  (14, 200)
+				 ON DUPLICATE KEY UPDATE income=values(income)";
+		 
+		
+		DB::instance(DB_NAME)->query($q);
+	
+	}
+	*/
 	
 	
 } # end of class

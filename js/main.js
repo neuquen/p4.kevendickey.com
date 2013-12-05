@@ -1,27 +1,67 @@
+/****************************************************************************************************
+ * EVENT LISTENERS
+ ****************************************************************************************************/
 
 $('.updateIncome').click(function() {
 	var options = {
 		type: "POST",
-		url: "/profile/add",
+		url: "/profile/update",
+		beforeSerialize: function(){
+            addIncome();
+		},
 		beforeSubmit: function(){
-			$('#results').html("Updating...")
+			$('.resultsIncome').html("Updating...")
 		},
 		success: function(response){
-			$('#results').html("Updated on " + currentDate);
-			addIncome();
+			$('.resultsIncome').html("Updated on " + currentDate);
+			
+			// Parse the JSON results into an array
+            var total = $.parseJSON(response);
+            
+            // Inject the data into the page
+            $('#output-income').html("$" + total['income']);
 		}		
 	}
 	
 	$('.form-income').ajaxForm(options);
+}); 
+
+$('.updateExpenses').click(function(){
+	var options = {
+		type: "POST",
+		url: "/profile/update",
+		beforeSerialize: function(){
+            addExpenses();
+		},
+		beforeSubmit: function(){
+			$('.resultsExpenses').html("Updating...")
+		},
+		success: function(response){
+			$('.resultsExpenses').html("Updated on " + currentDate);
+			
+			// Parse the JSON results into an array
+            var total = $.parseJSON(response);
+            
+            // Inject the data into the page
+            $('#output-expenses').html("$" + total['expenses']);
+		}		
+	}
+	
+	$('.form-expenses').ajaxForm(options);
 });
 
-$('.updateExpenses').click(addExpenses);
 
+/****************************************************************************************************
+ * CUSTOM FUNCTIONS
+ ****************************************************************************************************/
+
+// Grab the user inputs and return a total
 function addIncome () {
 	console.log("Updated Income");
 	
-	var input = $('.form-income :input');
+	var input = $('.form-income :input').not("input[name='income']");
 	
+	// Loop through form inputs
 	var total = 0;
 	input.each(function(){
 		total += Number($(this).val());
@@ -30,15 +70,24 @@ function addIncome () {
 	// Truncate trailing zeros
 	total = (total).toFixed(2);
 	
-	$('#output-income').html("$" + total);
+	// Grab current Total
+	var currentTotal = $('#output-income').html().replace("$", "");
+	
+	// Convert strings to numbers
+	total = Number(total) + Number(currentTotal);
+	
+	// Output to hidden form field, to be sent with form
 	$('#total-income').val(total);
 }
 
+
+//Grab the user inputs and return a total
 function addExpenses () {
 	console.log("Updated Expenses")
 	
-	var input = $('.form-expenses :input');
+	var input = $('.form-expenses :input').not("input[name='expenses']");
 	
+	// Loop through form inputs
 	var total = 0;
 	input.each(function(){
 		total += Number($(this).val());
@@ -47,10 +96,20 @@ function addExpenses () {
 	// Truncate trailing zeros
 	total = (total).toFixed(2);
 	
-	$('#output-expenses').html("$" + total);
+	// Grab current Total
+	var currentTotal = $('#output-expenses').html().replace("$", "");
+	
+	// Convert strings to numbers
+	total = Number(total) + Number(currentTotal);
+	
+	$('#total-expenses').val(total);
 	
 }
 
+
+/****************************************************************************************************
+ * CUSTOM DATE FUNCTION
+ ****************************************************************************************************/
 
 var d = new Date();
 var currentDay = d.getDate();
@@ -82,4 +141,10 @@ var currentMinutes = d.getMinutes();
 
 var currentSeconds = d.getSeconds();
 
-var currentDate = currentMonth + "/" + currentDay + "/" + currentYear + " at " + currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + AMPM;
+	currentSeconds = currentSeconds + ""; //Convert to string in order to check length
+	
+	if (currentSeconds.length == 1){
+		currentSeconds = "0" + currentSeconds;
+	}
+
+var currentDate = currentMonth + "/" + currentDay + "/" + currentYear + " at " + currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + AMPM; 
