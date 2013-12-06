@@ -114,42 +114,4 @@ class profile_controller extends base_controller {
 		echo json_encode($total);
 	}
 	
-	/*
-	public function insert_db($first, $last){
-		$insert = "INSERT INTO budgets
-		(first_name, last_name)
-		Values
-		('$first', '$last')";
-	
-		echo $insert;
-	
-		DB::instance(DB_NAME)->query($insert);
-		
-		
-		$select = "SELECT count(1)
-							 FROM budgets
-							 WHERE user_id =".$this->user->user_id;
-		
-		if($select == 0){
-				# Insert totals into database
-				DB::instance(DB_NAME)->insert('budgets', $clean);
-		} else {
-				# Update totals in database
-				
-		}
-		
-		
-				$q = "INSERT INTO budgets
-				  (user_id, income)
-				VALUES
-				  (14, 200)
-				 ON DUPLICATE KEY UPDATE income=values(income)";
-		 
-		
-		DB::instance(DB_NAME)->query($q);
-	
-	}
-	*/
-	
-	
 } # end of class

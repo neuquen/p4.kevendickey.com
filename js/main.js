@@ -2,7 +2,7 @@
  * EVENT LISTENERS
  ****************************************************************************************************/
 
-$('.updateIncome').click(function() {
+$('.updateIncome').off('click').on('click', function() {
 	var options = {
 		type: "POST",
 		url: "/profile/update",
@@ -26,7 +26,7 @@ $('.updateIncome').click(function() {
 	$('.form-income').ajaxForm(options);
 }); 
 
-$('.updateExpenses').click(function(){
+$('.updateExpenses').off('click').on('click', function(){
 	var options = {
 		type: "POST",
 		url: "/profile/update",
@@ -48,6 +48,15 @@ $('.updateExpenses').click(function(){
 	}
 	
 	$('.form-expenses').ajaxForm(options);
+});
+
+
+// When page is ready, calculate percentage
+$(window).load(percentage);
+
+// When totals change, recalculate percentage
+$('.progress').bind("DOMSubtreeModified",function(){
+	  percentage();
 });
 
 
@@ -104,6 +113,33 @@ function addExpenses () {
 	
 	$('#total-expenses').val(total);
 	
+}
+
+
+function percentage() {
+	var income = $('#output-income').html().replace("$", "");
+	var expenses = $('#output-expenses').html().replace("$", "");
+	
+	income = Number(income);
+	expenses = Number(expenses);
+	
+	percentExpenses = (expenses/income) * 100;
+	percentIncome = 100 - percentExpenses;
+	
+	console.log(percentExpenses);
+	console.log(percentIncome);
+	
+	$('.progress-bar-expenses').css("width", percentExpenses + "%");
+	$('.progress-bar-income').css("width", percentIncome + "%");
+	
+	if (percentExpenses > 50 && percentExpenses < 80){
+		$('.progress-bar-expenses').removeClass('progress-bar-success').addClass('progress-bar-warning');
+	} else if (percentExpenses > 80){
+		$('.progress-bar-expenses').removeClass('progress-bar-success progress-bar-warning').addClass('progress-bar-danger');
+	} else {
+		$('.progress-bar-expenses').addClass('progress-bar-success');
+	}
+
 }
 
 

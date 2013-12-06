@@ -14,7 +14,7 @@
 			<div class="content">
 				<h2>Summary</h2>
 				<div class="progress text-center">
-					<div class="progress-bar progress-bar-success" role="progressbar">
+					<div class="progress-bar progress-bar-expenses" role="progressbar">
 						<span id="output-expenses">$<?php echo $total['expenses']?></span>
 					</div>
 					<div class="progress-bar progress-bar-warning" role="progressbar">
@@ -36,7 +36,9 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="content">
-				<h2>Income</h2>
+				<h2>Income
+					<button type="button" class="btn btn-danger btn-xs">Clear Total</button>
+				</h2>
 			<form class="form-income form-horizontal" role="form" method="post" action="/profile/update">
         <div class="form-group">
             <label for="paycheck" class="control-label col-sm-3">Paycheck</label>
@@ -69,7 +71,9 @@
 		
 		<div class="col-md-6">
 			<div class="content">
-				<h2>Expenses</h2>
+				<h2>Expenses
+					<button type="button" class="btn btn-danger btn-xs">Clear Total</button>
+				</h2>
 			<form class="form-expenses form-horizontal" role="form" method="post" action="/profile/update">
         <div class="form-group">
             <label for="" class="control-label col-sm-3">Rent/mortgage</label>
