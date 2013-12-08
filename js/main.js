@@ -2,12 +2,12 @@
  * EVENT LISTENERS
  ****************************************************************************************************/
 
-$('.updateIncome').off('click').on('click', function() {
+$('#update-income').click(function() {
 	var options = {
 		type: "POST",
 		url: "/profile/update",
 		beforeSerialize: function(){
-            addIncome();
+			addIncome();
 		},
 		beforeSubmit: function(){
 			$('.resultsIncome').html("Updating...")
@@ -26,12 +26,12 @@ $('.updateIncome').off('click').on('click', function() {
 	$('.form-income').ajaxForm(options);
 }); 
 
-$('.updateExpenses').off('click').on('click', function(){
+$('#update-expenses').click(function(){
 	var options = {
 		type: "POST",
 		url: "/profile/update",
 		beforeSerialize: function(){
-            addExpenses();
+			addExpenses();
 		},
 		beforeSubmit: function(){
 			$('.resultsExpenses').html("Updating...")
@@ -49,6 +49,62 @@ $('.updateExpenses').off('click').on('click', function(){
 	
 	$('.form-expenses').ajaxForm(options);
 });
+
+
+$('#clear-income').click(function() {
+	var options = {
+		type: "POST",
+		url: "/profile/clearIncome",
+		beforeSubmit: function(){
+			var answer = confirm('Are you sure you want to clear your total income?');
+			var expenses = $('#output-expenses').html().replace("$", "");
+			
+			if (!answer) {
+				return false;
+			}
+			
+			if (expenses != 0){
+				alert('Your expenses cannot be greater than your income... \n...it\'s simple math... It\'s a good thing I\'m here to remind you.  \n\nPlease clear your expenses first.');
+				return false;
+			}
+	
+		},
+		success: function(response){
+			// Parse the JSON results into an array
+            var total = $.parseJSON(response);
+            
+            // Inject the data into the page
+            $('#output-income').html("$" + total['expenses']);
+		}		
+	}
+	
+	$('.form-clear-income').ajaxForm(options);
+});
+
+
+$('#clear-expenses').click(function() {
+	var options = {
+		type: "POST",
+		url: "/profile/clearExpenses",
+		beforeSubmit: function(){
+			var answer = confirm('Are you sure you want to clear your total expenses?');
+			if (!answer) {
+				return false;
+			}
+		},
+		success: function(response){
+			// Parse the JSON results into an array
+            var total = $.parseJSON(response);
+            
+            // Inject the data into the page
+            $('#output-expenses').html("$" + total['expenses']);
+		}		
+	}
+	
+	$('.form-clear-expenses').ajaxForm(options);
+});
+
+
 
 
 // When page is ready, calculate percentage
@@ -111,8 +167,16 @@ function addExpenses () {
 	// Convert strings to numbers
 	total = Number(total) + Number(currentTotal);
 	
-	$('#total-expenses').val(total);
+	var income = $('#output-income').html().replace("$", "");
+	income = Number(income);
 	
+	if (total > income){
+		alert("Someone's been spending too much money... I'm sorry but unless you are the government, you can't continue... \n\n...not that they should either...");
+		return false;
+	} else {
+		$('#total-expenses').val(total);
+		
+	}	
 }
 
 
@@ -126,15 +190,15 @@ function percentage() {
 	percentExpenses = (expenses/income) * 100;
 	percentIncome = 100 - percentExpenses;
 	
-	console.log(percentExpenses);
-	console.log(percentIncome);
+	//console.log(percentExpenses);
+	//console.log(percentIncome);
 	
 	$('.progress-bar-expenses').css("width", percentExpenses + "%");
 	$('.progress-bar-income').css("width", percentIncome + "%");
 	
 	if (percentExpenses > 50 && percentExpenses < 80){
 		$('.progress-bar-expenses').removeClass('progress-bar-success').addClass('progress-bar-warning');
-	} else if (percentExpenses > 80){
+	} else if (percentExpenses >= 80){
 		$('.progress-bar-expenses').removeClass('progress-bar-success progress-bar-warning').addClass('progress-bar-danger');
 	} else {
 		$('.progress-bar-expenses').addClass('progress-bar-success');
@@ -144,43 +208,56 @@ function percentage() {
 
 
 /****************************************************************************************************
- * CUSTOM DATE FUNCTION
+ * MOMENT.JS - DATE FUNCTION
  ****************************************************************************************************/
+var currentDate = moment().format('MMMM Do YYYY, h:mm a');
+//var currentDate = moment().startOf('minute').fromNow();
 
-var d = new Date();
-var currentDay = d.getDate();
-var currentMonth = d.getMonth() + 1; //Months are zero based
-var currentYear = d.getFullYear();
-var currentHours = d.getHours();
 
-    if (currentHours < 12){
-    	AMPM = "AM";
-    } else {
-    	AMPM = "PM";
-    }
+/****************************************************************************************************
+ * FORM VALIDATION
+ ****************************************************************************************************/
+// Adds HTML5 validation to form inputs
+// Only allows numbers and '.' in budget input forms (ex, 0123. 012.3 01.23 0.123 and .0123)
+$( ".input-group input" ).attr("pattern", '\\d+(\\.\\d*)?|\\.\\d+').attr('title','Only whole numbers and decimals allowed.');
+
+/*
+// Prevents empty fields in signup form
+window.onload = function(){
+    var signup = document.getElementById('signup');
+	//var budgetForms = document.document.getElementsByClassName('form-control');
+    //var signup = $('#signup')[0];
+    var budgetForms = $('.form-clear-income, .form-clear-expenses')[0];
+    signup.onkeydown = preventSpace;
+    signup.onpaste = preventPaste;
     
-    if (currentHours == 0) {
-    	currentHours = 12;
-    }
-    
-    if (currentHours > 12){
-    	currentHours = currentHours - 12;
-    }
+    budgetForms.onkeydown = preventSpace;
+    budgetForms.onpaste = preventPaste;
+    budgetForms.onkeydown = isNumberKey(e);
+};
 
-var currentMinutes = d.getMinutes();
+function preventSpace(e){
+    var e = e || event;
+    if (e.keyCode == 32) return false;  
+}
 
-    currentMinutes = currentMinutes + ""; //Convert to string in order to check length
+function preventPaste(e){
+    var e = e || event;
+    var data = e.clipboardData.getData("text/plain");
+    if (data.match(/\s/g)) return false;    
+}
 
-    if (currentMinutes.length == 1){
-    	currentMinutes = "0" + currentMinutes;
-    }
+function isNumberKey(e){
+   var charCode = (e.which) ? e.which : event.keyCode;
+   if (charCode != 46 && charCode > 31 
+     && (charCode < 48 || charCode > 57))
+      return false;
 
-var currentSeconds = d.getSeconds();
+   return true;
+}
 
-	currentSeconds = currentSeconds + ""; //Convert to string in order to check length
-	
-	if (currentSeconds.length == 1){
-		currentSeconds = "0" + currentSeconds;
-	}
+form.onsubmit = function(){
+    return textarea.value.match(/^\d+(\.\d+)?$/);
+}
+*/
 
-var currentDate = currentMonth + "/" + currentDay + "/" + currentYear + " at " + currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + AMPM; 

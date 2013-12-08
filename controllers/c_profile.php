@@ -18,8 +18,7 @@ class profile_controller extends base_controller {
 		$this->template->title = "Don't Budge";
 		
 		$client_files_body = Array(
-				"/js/jquery.form.js",
-				"/js/main.js"
+				"/js/jquery.form.js"
 		);
 		
 		$this->template->client_files_body = Utils::load_client_files($client_files_body);
@@ -105,6 +104,24 @@ class profile_controller extends base_controller {
 		# Insert totals into database
 		DB::instance(DB_NAME)->update_or_insert_row('budgets', $clean);
 		
+		$this->getBudgetData();
+	}
+	
+	public function clearIncome(){
+		$clear = Array("income" => "0");
+		DB::instance(DB_NAME)->update("budgets", $clear, "WHERE user_id =".$this->user->user_id);
+
+		$this->getBudgetData();
+	}
+	
+	public function clearExpenses(){
+		$clear = Array("expenses" => "0");
+		DB::instance(DB_NAME)->update("budgets", $clear, "WHERE user_id =".$this->user->user_id);
+		
+		$this->getBudgetData();
+	}
+	
+	public function getBudgetData(){
 		# Grab total from DB
 		//$total = Array();
 		$q = "SELECT * FROM budgets WHERE user_id=".$this->user->user_id;

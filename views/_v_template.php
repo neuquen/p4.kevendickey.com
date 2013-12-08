@@ -17,6 +17,8 @@
 	<!-- Google Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Cinzel:400,700' rel='stylesheet' type='text/css'>
 	
+	<!-- Moment.js for formatted date -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.min.js"></script>
 </head>
 
 <body<?php if(isset($bodyID)) echo " id='$bodyID'" ?>>

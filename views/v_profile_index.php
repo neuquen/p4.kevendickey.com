@@ -3,11 +3,11 @@
 
 	<div class="starter-template">
 		<h1>Welcome<?php if($user) echo ', '.$user->first_name; ?></h1>
-		<p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.
+		<p class="lead">To get started, fill out your income.  The amount of money you have to use on expenses will be based on that total.<br>
+										Your totals will be displayed in the summary bar and will indicate how well you are doing at not budging.<br>
+										GOOD LUCK! ...and remember... DON'T BUDGE!  (Not even for your girlfriend...)
 		</p>
 	</div>
-
-
 	
 	<div class="row">
 		<div class="col-md-12">
@@ -17,12 +17,6 @@
 					<div class="progress-bar progress-bar-expenses" role="progressbar">
 						<span id="output-expenses">$<?php echo $total['expenses']?></span>
 					</div>
-					<div class="progress-bar progress-bar-warning" role="progressbar">
-						<span>$0.00</span>
-					</div>
-					<div class="progress-bar progress-bar-danger" role="progressbar">
-						<span>$0.00</span>
-					</div>
 					<div class="progress-bar progress-bar-income" role="progressbar">
 						<span id="output-income">$<?php echo $total['income']?></span>
 					</div>
@@ -31,17 +25,17 @@
 		</div>
 	</div>
 	
-
-
 	<div class="row">
 		<div class="col-md-6">
 			<div class="content">
 				<h2>Income
-					<button type="button" class="btn btn-danger btn-xs">Clear Total</button>
+					<form class="form-clear-income" method="post" action="/profile/clearIncome">
+						<button type="submit" class="btn btn-danger btn-xs" id="clear-income">Clear Total</button>
+					</form>
 				</h2>
 			<form class="form-income form-horizontal" role="form" method="post" action="/profile/update">
         <div class="form-group">
-            <label for="paycheck" class="control-label col-sm-3">Paycheck</label>
+            <label for="paycheck" class="control-label col-sm-3">Paycheck/Salary</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span> 
               <input type="text" class="form-control" id="paycheck" />
@@ -62,7 +56,7 @@
             </div>
         </div>
         <input type="text" class="form-control" name="income" id="total-income"/>
-        <button class="btn btn-lg btn-primary btn-block updateIncome" type="submit" >Update</button>
+        <button class="btn btn-lg btn-primary btn-block" id="update-income" type="submit" >Update</button>
         <div class="resultsIncome"></div>
     </form>
 
@@ -72,18 +66,20 @@
 		<div class="col-md-6">
 			<div class="content">
 				<h2>Expenses
-					<button type="button" class="btn btn-danger btn-xs">Clear Total</button>
+					<form class="form-clear-expenses" method="post" action="/profile/clearExpenses">
+						<button type="submit" class="btn btn-danger btn-xs" id="clear-expenses">Clear Total</button>
+					</form>
 				</h2>
 			<form class="form-expenses form-horizontal" role="form" method="post" action="/profile/update">
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Rent/mortgage</label>
+            <label for="" class="control-label col-sm-3">Rent/Mortgage</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span> 
               <input type="text" class="form-control" id="" />
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Utilies</label>
+            <label for="" class="control-label col-sm-3">Utilities</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span>
               <input type="text" class="form-control" id="" />
@@ -146,7 +142,7 @@
             </div>
         </div>
         <input type="text" class="form-control" name="expenses" id="total-expenses"/>
-        <button class="btn btn-lg btn-primary btn-block updateExpenses" type="submit" >Update</button>
+        <button class="btn btn-lg btn-primary btn-block" id="update-expenses" type="submit" >Update</button>
         <div class="resultsExpenses"></div>
     </form>
 				
