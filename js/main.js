@@ -13,7 +13,7 @@ $('#update-income').click(function() {
 			$('.resultsIncome').html("Updating...")
 		},
 		success: function(response){
-			$('.resultsIncome').html("Updated on " + currentDate);
+			$('.resultsIncome').html("<span class='glyphicon glyphicon-ok''></span> Updated on " + currentDate);
 			
 			// Parse the JSON results into an array
             var total = $.parseJSON(response);
@@ -37,7 +37,7 @@ $('#update-expenses').click(function(){
 			$('.resultsExpenses').html("Updating...")
 		},
 		success: function(response){
-			$('.resultsExpenses').html("Updated on " + currentDate);
+			$('.resultsExpenses').html("<span class='glyphicon glyphicon-ok''></span> Updated on " + currentDate);
 			
 			// Parse the JSON results into an array
             var total = $.parseJSON(response);
@@ -219,21 +219,16 @@ var currentDate = moment().format('MMMM Do YYYY, h:mm a');
  ****************************************************************************************************/
 // Adds HTML5 validation to form inputs
 // Only allows numbers and '.' in budget input forms (ex, 0123. 012.3 01.23 0.123 and .0123)
-$( ".input-group input" ).attr("pattern", '\\d+(\\.\\d*)?|\\.\\d+').attr('title','Only whole numbers and decimals allowed.');
+$( ".input-group input" ).attr("pattern", '\\d+(\\.\\d*)?|\\.\\d+').attr('title','Only positive numbers in decimal form');
+$( ".form-signup input[type=email]" ).attr("pattern", "[a-z0-9!#$%&'*+/=?^_{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?").attr('title','Ex. username@emailaddress.com');
 
-/*
+
 // Prevents empty fields in signup form
 window.onload = function(){
     var signup = document.getElementById('signup');
-	//var budgetForms = document.document.getElementsByClassName('form-control');
     //var signup = $('#signup')[0];
-    var budgetForms = $('.form-clear-income, .form-clear-expenses')[0];
     signup.onkeydown = preventSpace;
     signup.onpaste = preventPaste;
-    
-    budgetForms.onkeydown = preventSpace;
-    budgetForms.onpaste = preventPaste;
-    budgetForms.onkeydown = isNumberKey(e);
 };
 
 function preventSpace(e){
@@ -246,7 +241,7 @@ function preventPaste(e){
     var data = e.clipboardData.getData("text/plain");
     if (data.match(/\s/g)) return false;    
 }
-
+/*
 function isNumberKey(e){
    var charCode = (e.which) ? e.which : event.keyCode;
    if (charCode != 46 && charCode > 31 

@@ -3,9 +3,9 @@
 
 	<div class="starter-template">
 		<h1>Welcome<?php if($user) echo ', '.$user->first_name; ?></h1>
-		<p class="lead">To get started, fill out your income.  The amount of money you have to use on expenses will be based on that total.<br>
+		<p class="lead">To get started, fill out your income.  The amount of money you have to use on expenses will be based on your income.<br>
 										Your totals will be displayed in the summary bar and will indicate how well you are doing at not budging.<br>
-										GOOD LUCK! ...and remember... DON'T BUDGE!  (Not even for your girlfriend...)
+										GOOD LUCK! ...and remember... DON'T BUDGE!  (Not even for your girlfriend or boyfriend...)
 		</p>
 	</div>
 	

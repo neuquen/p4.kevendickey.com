@@ -20,21 +20,27 @@ class index_controller extends base_controller {
 			
 		# Now set the <title> tag
 			$this->template->title = "Don't Budge";
-			$this->template->bodyID = 'index';
-	
-		# CSS/JS includes
-			/*
-			$client_files_head = Array("");
-	    	$this->template->client_files_head = Utils::load_client_files($client_files);
-	    	
-	    	$client_files_body = Array("");
-	    	$this->template->client_files_body = Utils::load_client_files($client_files_body);   
-	    	*/
 	      					     		
 		# Render the view
 			echo $this->template;
 
 	} # End of method
+	
+	// Display an error message if an incorrect email or password is entered
+	public function login($loginerror = NULL){
+		$this->template->content = View::instance('v_index_index');
+		$this->template->title = "Login Error";
+		$this->template->content->loginerror = $loginerror;
+		echo $this->template;
+	}
+	
+	// Display an error message if the email already exists
+	public function signup($signuperror = NULL){
+		$this->template->content = View::instance('v_index_index');
+		$this->template->title = "Signup Error";
+		$this->template->content->signuperror = $signuperror;
+		echo $this->template;
+	}
 	
 	
 } # End of class

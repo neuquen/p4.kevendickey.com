@@ -130,6 +130,15 @@ body {
 *****************************************************************************/
 
 /*************** FORMS *******************/
+
+.alert {
+	margin-top: 10px;
+}
+
+	.alert span {
+		margin-right: 5px;
+	}
+
 .form-signin h2, .form-signup h2 {
 	color: black;
 	font-weight:bold;

@@ -65,7 +65,7 @@ class profile_controller extends base_controller {
 		}
 		# Fail
 		else {
-			Router::redirect('/'); /********************** CHANGE THIS ***************************/
+			Router::redirect('/index/login/loginerror');
 		}
 	}
 	

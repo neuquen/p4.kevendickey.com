@@ -48,7 +48,7 @@ class users_controller extends base_controller {
 		    Router::redirect('/profile');
 	    
     	} else {
-    		Router::redirect('/'); /********************** CHANGE THIS ***************************/
+    		Router::redirect('/index/signup/signuperror');
     	}
     	
     	

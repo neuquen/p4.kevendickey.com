@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	
 	<!-- Main CSS -->
-	<link href="css/main.css" rel='stylesheet' type='text/css'>
+	<link href="/css/main.css" rel='stylesheet' type='text/css'>
 	
 	<!-- Google Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Cinzel:400,700' rel='stylesheet' type='text/css'>
@@ -63,7 +63,7 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 	
 	<!-- Main JS -->
-	<script src="js/main.js"></script>
+	<script src="/js/main.js"></script>
 	
 	<!-- Controller Specific JS -->
 	<?php if(isset($client_files_body)) echo $client_files_body; ?>
