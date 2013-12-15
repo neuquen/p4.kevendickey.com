@@ -24,7 +24,7 @@
 				<h2 class="form-signin-heading">Sign In</h2>
 				<input type="email" class="form-control" name="email" placeholder="Email address" required autofocus>
 				<input type="password" class="form-control" name="password" placeholder="Password" required>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+				<button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-log-in"></span> Sign in</button>
 				<?php if(isset($loginerror)): ?>				
 					<div class="alert alert-danger alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -41,7 +41,7 @@
 				<input type="text" class="form-control" name="last_name" placeholder="Last Name" id="signup-name" required> 
 				<input type="email" class="form-control" name="email" placeholder="Email address" id="signup-email" required> 
 				<input type="password" class="form-control" name="password" placeholder="Password" required>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+				<button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-pencil"></span> Sign Up</button>
 				<?php if(isset($signuperror)): ?>
 					<div class="alert alert-danger alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

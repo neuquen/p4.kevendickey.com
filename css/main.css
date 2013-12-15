@@ -123,6 +123,11 @@ body {
 	.resultsExpenses {
 	 float: right;
 	}
+	
+canvas {
+	display: table;
+  margin: 0 auto;
+}
 
 
 /****************************************************************************

@@ -30,7 +30,7 @@
 			<div class="content">
 				<h2>Income
 					<form class="form-clear-income" method="post" action="/profile/clearIncome">
-						<button type="submit" class="btn btn-danger btn-xs" id="clear-income">Clear Total</button>
+						<button type="submit" class="btn btn-danger btn-xs" id="clear-income"><span class="glyphicon glyphicon-trash"></span> Clear Total</button>
 					</form>
 				</h2>
 			<form class="form-income form-horizontal" role="form" method="post" action="/profile/update">
@@ -56,99 +56,168 @@
             </div>
         </div>
         <input type="text" class="form-control" name="income" id="total-income"/>
-        <button class="btn btn-lg btn-primary btn-block" id="update-income" type="submit" >Update</button>
+        <button class="btn btn-lg btn-primary btn-block" id="update-income" type="submit" ><span class="glyphicon glyphicon-floppy-save"></span> Update</button>
         <div class="resultsIncome"></div>
     </form>
 
 			</div>
+			
+			<div class="content" >
+				<h2>Expenses Breakdown</h2>
+				<table class="table table-hover">
+				  <th >Category</th>
+				  <th >Total</th>
+				  
+				  <tr>
+					  <td>Housing</td>
+					  <td id="output-housing">$<?php echo $total['housing']?></td>
+				  </tr>
+				  
+				  <tr>
+					  <td>Utilities</td>
+					  <td id="output-utilities">$<?php echo $total['utilities']?></td>
+				  </tr>
+				  
+				  <tr>
+					  <td>Food/Dining</td>
+					  <td id="output-food">$<?php echo $total['food']?></td>
+				  </tr>
+				  
+				  <tr>
+					  <td>Automobile</td>
+					  <td id="output-automobile">$<?php echo $total['automobile']?></td>
+				  </tr>
+				  
+				  <tr>
+					  <td>Loans/Debt</td>
+					  <td id="output-debt">$<?php echo $total['debt']?></td>
+				  </tr>
+				  
+				  <tr>
+					  <td>Medical</td>
+					  <td id="output-medical">$<?php echo $total['medical']?></td>
+				  </tr>
+				  
+				  <tr>
+					  <td>Insurance</td>
+					  <td id="output-insurance">$<?php echo $total['insurance']?></td>
+				  </tr>
+				  
+				  <tr>
+					  <td>Personal Care</td>
+					  <td id="output-personal">$<?php echo $total['personal']?></td>
+				  </tr>
+				  
+				  <tr>
+					  <td>Entertainment</td>
+					  <td id="output-entertainment">$<?php echo $total['entertainment']?></td>
+				  </tr>
+				  
+				  <tr>
+					  <td>Other</td>
+					  <td id="output-other">$<?php echo $total['other']?></td>
+				  </tr>
+				</table>
+				
+				<canvas class="half" id="pie" width="400" height="400"></canvas>
+			</div>
+			
+			
 		</div>
 		
 		<div class="col-md-6">
 			<div class="content">
 				<h2>Expenses
 					<form class="form-clear-expenses" method="post" action="/profile/clearExpenses">
-						<button type="submit" class="btn btn-danger btn-xs" id="clear-expenses">Clear Total</button>
+						<button type="submit" class="btn btn-danger btn-xs" id="clear-expenses"><span class="glyphicon glyphicon-trash"></span> Clear Total</button>
 					</form>
 				</h2>
 			<form class="form-expenses form-horizontal" role="form" method="post" action="/profile/update">
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Rent/Mortgage</label>
+            <label for="housing" class="control-label col-sm-3">Housing</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span> 
-              <input type="text" class="form-control" id="" />
+              <input type="text" class="form-control" name="housing" id="housing" />
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Utilities</label>
+            <label for="utilities" class="control-label col-sm-3">Utilities</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span>
-              <input type="text" class="form-control" id="" />
+              <input type="text" class="form-control" name="utilities" id="utilities" />
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Groceries</label>
+            <label for="food" class="control-label col-sm-3">Food/Dining</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span> 
-              <input type="text" class="form-control" id="" />
+              <input type="text" class="form-control" name="food" id="food" />
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Automobile</label>
+            <label for="automobile" class="control-label col-sm-3">Automobile</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span> 
-              <input type="text" class="form-control" id="" />
+              <input type="text" class="form-control" name="automobile" id="automobile" />
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Loans/Debt</label>
+            <label for="debt" class="control-label col-sm-3">Loans/Debt</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span>
-              <input type="text" class="form-control" id="" />
+              <input type="text" class="form-control" name="debt" id="debt" />
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Credit Card</label>
+            <label for="medical" class="control-label col-sm-3">Medical</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span> 
-              <input type="text" class="form-control" id="" />
+              <input type="text" class="form-control" name="medical" id="medical" />
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Insurance</label>
+            <label for="insurance" class="control-label col-sm-3">Insurance</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span> 
-              <input type="text" class="form-control" id="" />
+              <input type="text" class="form-control" name="insurance" id="insurance" />
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Personal Care</label>
+            <label for="personal" class="control-label col-sm-3">Personal Care</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span>
-              <input type="text" class="form-control" id="" />
+              <input type="text" class="form-control" name="personal" id="personal" />
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Entertainment</label>
+            <label for="entertainment" class="control-label col-sm-3">Entertainment</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span> 
-              <input type="text" class="form-control" id="" />
+              <input type="text" class="form-control" name="entertainment" id="entertainment" />
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="control-label col-sm-3">Other</label>
+            <label for="other" class="control-label col-sm-3">Other</label>
             <div class="input-group input-group-lg col-sm-9"> 
             	<span class="input-group-addon">$</span> 
-              <input type="text" class="form-control" id="" />
+              <input type="text" class="form-control" name="other" id="other" />
             </div>
         </div>
         <input type="text" class="form-control" name="expenses" id="total-expenses"/>
-        <button class="btn btn-lg btn-primary btn-block" id="update-expenses" type="submit" >Update</button>
+        <button class="btn btn-lg btn-primary btn-block" id="update-expenses" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Update</button>
         <div class="resultsExpenses"></div>
     </form>
 				
 			</div>
 			
 		</div>
+		
+
+
+
+		
+		
+		
 	</div>
 
 

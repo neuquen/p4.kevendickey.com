@@ -115,7 +115,17 @@ class profile_controller extends base_controller {
 	}
 	
 	public function clearExpenses(){
-		$clear = Array("expenses" => "0");
+		$clear = Array("expenses" => "0", 
+									 "housing" => "0", 
+									 "utilities" => "0", 
+									 "food" => "0",
+									 "automobile" => "0", 
+									 "debt" => "0", 
+									 "medical" => "0",
+									 "insurance" => "0",
+									 "personal" => "0",
+									 "entertainment" => "0",
+									 "other" => "0");
 		DB::instance(DB_NAME)->update("budgets", $clear, "WHERE user_id =".$this->user->user_id);
 		
 		$this->getBudgetData();

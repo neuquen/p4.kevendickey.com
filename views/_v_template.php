@@ -43,7 +43,7 @@
 					<li><a href="#contact">Contact</a></li>
 				</ul>
 				<form method="post" action="/profile/logout">
-					<button class="btn btn-success navbar-btn navbar-right" type="submit">Log Out</button>
+					<button class="btn btn-success navbar-btn navbar-right" type="submit"><span class="glyphicon glyphicon-log-out"></span> Log Out</button>
 				</form>
 			</div>
 			<!--/.nav-collapse -->
@@ -61,6 +61,10 @@
 	
 	<!-- Bootstrap JS -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+	
+	<!-- Chart JS -->
+	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script> -->
+	<script src="/js/Chart.js"></script>
 	
 	<!-- Main JS -->
 	<script src="/js/main.js"></script>

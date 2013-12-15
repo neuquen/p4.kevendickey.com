@@ -10,10 +10,11 @@ $('#update-income').click(function() {
 			addIncome();
 		},
 		beforeSubmit: function(){
-			$('.resultsIncome').html("Updating...")
+			$('.resultsIncome').html("Updating...");
+			$('.form-income :input').val('');
 		},
 		success: function(response){
-			$('.resultsIncome').html("<span class='glyphicon glyphicon-ok''></span> Updated on " + currentDate);
+			$('.resultsIncome').html("<span class='glyphicon glyphicon-ok'></span> Updated on " + currentDate);
 			
 			// Parse the JSON results into an array
             var total = $.parseJSON(response);
@@ -32,18 +33,22 @@ $('#update-expenses').click(function(){
 		url: "/profile/update",
 		beforeSerialize: function(){
 			addExpenses();
+			addExpensesBreakdown();
 		},
 		beforeSubmit: function(){
-			$('.resultsExpenses').html("Updating...")
+			$('.resultsExpenses').html("Updating...");
+			$('.form-expenses :input').val('');
 		},
 		success: function(response){
-			$('.resultsExpenses').html("<span class='glyphicon glyphicon-ok''></span> Updated on " + currentDate);
+			$('.resultsExpenses').html("<span class='glyphicon glyphicon-ok'></span> Updated on " + currentDate);
 			
 			// Parse the JSON results into an array
             var total = $.parseJSON(response);
             
             // Inject the data into the page
             $('#output-expenses').html("$" + total['expenses']);
+            outputExpensesBreakdown(response);
+            
 		}		
 	}
 	
@@ -98,6 +103,7 @@ $('#clear-expenses').click(function() {
             
             // Inject the data into the page
             $('#output-expenses').html("$" + total['expenses']);
+            outputExpensesBreakdown(response);
 		}		
 	}
 	
@@ -114,6 +120,9 @@ $(window).load(percentage);
 $('.progress').bind("DOMSubtreeModified",function(){
 	  percentage();
 });
+
+
+
 
 
 /****************************************************************************************************
@@ -180,6 +189,33 @@ function addExpenses () {
 }
 
 
+function addExpensesBreakdown() {
+	console.log("Updated Expenses Breakdown");
+	
+	var input = $('.form-expenses :input').not("input[name='expenses']");
+	
+    input.each(function(){
+	    var currentInput= $(this); 
+	    var inputId = this.id;
+	    var currentTotal = $('#output-' + inputId).text().replace("$", "");
+	    
+	    currentInput.val(function(i,val){
+	      return (1 * (val || 0) + 1 * currentTotal).toFixed(2);
+	    })
+	});
+}
+
+function outputExpensesBreakdown(response) {
+	var total = $.parseJSON(response);
+	
+	var input = $('.form-expenses :input').not("input[name='expenses']");
+	
+	input.each(function(){
+		var inputId = this.id;
+		$('#output-' + inputId).html("$" + total[inputId]);
+	})
+}
+
 function percentage() {
 	var income = $('#output-income').html().replace("$", "");
 	var expenses = $('#output-expenses').html().replace("$", "");
@@ -213,13 +249,107 @@ function percentage() {
 var currentDate = moment().format('MMMM Do YYYY, h:mm a');
 //var currentDate = moment().startOf('minute').fromNow();
 
+/****************************************************************************************************
+ * CHART.JS - CUSTOM CHARTS
+ ****************************************************************************************************/
+
+var pieData = [
+				{
+					value:  2.00,
+					color:"#FFC901",
+					label : 'Housing',
+			        labelColor : 'white',
+			        labelFontSize : '18'
+				},
+				{
+					value : 1.00,
+					color : "#E8330C",
+					label : 'Utilities',
+			        labelColor : 'white',
+			        labelFontSize : '18'
+				},
+				{
+					value : 1,
+					color : "#9100FF",
+					label : 'Food/Dining',
+			        labelColor : 'white',
+			        labelFontSize : '18'
+				},
+				{
+					value : 0,
+					color : "#0CA9E8",
+					label : 'Automobile',
+			        labelColor : 'white',
+			        labelFontSize : '18'
+				},
+				{
+					value : 0,
+					color : "#1BFF0D",
+					label : 'Loans/Debt',
+			        labelColor : 'white',
+			        labelFontSize : '18'
+				},
+				{
+					value : 1,
+					color : "#D7F700",
+					label : 'Medical',
+			        labelColor : 'white',
+			        labelFontSize : '18'
+				},
+				{
+					value : 1,
+					color : "#E88008",
+					label : 'Insurance',
+			        labelColor : 'white',
+			        labelFontSize : '18'
+				},
+				{
+					value : 1,
+					color : "#FF048F",
+					label : 'Personal Care',
+			        labelColor : 'white',
+			        labelFontSize : '18'
+				},
+				{
+					value : 0,
+					color : "#0816E8",
+					label : 'Entertainment',
+			        labelColor : 'white',
+			        labelFontSize : '18'
+				},
+				{
+					value : 0,
+					color : "#09FFA9",
+					label : 'Other',
+			        labelColor : 'white',
+			        labelFontSize : '18'
+				}
+			
+			];
+
+//var pieChart = new Chart(document.getElementById("foodPie").getContext("2d")).Pie(pieData);
+
+/*****Pure JS******/
+//Get the context of the canvas element we want to select
+var ctx = document.getElementById("pie").getContext("2d");
+var pieChart = new Chart(ctx).Pie(pieData);
+
+/*****jQuery*******/
+//Get context with jQuery - using jQuery's .get() method.
+//var ctx = $("#pie").get(0).getContext("2d");
+//This will get the first returned node in the jQuery collection.
+//var pieChart = new Chart(ctx).Pie(pieData);
+
+
 
 /****************************************************************************************************
  * FORM VALIDATION
  ****************************************************************************************************/
 // Adds HTML5 validation to form inputs
-// Only allows numbers and '.' in budget input forms (ex, 0123. 012.3 01.23 0.123 and .0123)
+// Only allows numbers and '.' in budget input forms (ex, 0123. 012.3 01.23 0.123 or .0123) using regex
 $( ".input-group input" ).attr("pattern", '\\d+(\\.\\d*)?|\\.\\d+').attr('title','Only positive numbers in decimal form');
+
+// Generic email regex validation to allow certain formatting for email addresses
 $( ".form-signup input[type=email]" ).attr("pattern", "[a-z0-9!#$%&'*+/=?^_{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?").attr('title','Ex. username@emailaddress.com');
 
 
@@ -255,4 +385,5 @@ form.onsubmit = function(){
     return textarea.value.match(/^\d+(\.\d+)?$/);
 }
 */
+
 
