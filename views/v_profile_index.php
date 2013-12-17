@@ -3,10 +3,12 @@
 
 	<div class="starter-template">
 		<h1>Welcome<?php if($user) echo ', '.$user->first_name; ?></h1>
-		<p class="lead">To get started, fill out your income.  The amount of money you have to use on expenses will be based on your income.<br>
-										Your totals will be displayed in the summary bar and will indicate how well you are doing at not budging.<br>
-										GOOD LUCK! ...and remember... DON'T BUDGE!  (Not even for your girlfriend or boyfriend...)
-		</p>
+		<p class="lead">To get started, fill out your income.  The amount of money you have to use on expenses will be based on your income.
+										Once your expenses are filled out, you can see a breakdown of how much you spend on each item.
+										Your totals displayed in the summary bar and expenses breakdown will indicate how well you are doing at not budging.
+		</p>								
+		<p class="lead">GOOD LUCK! ...and remember... DON'T BUDGE&trade;!</p>
+		
 	</div>
 	
 	<div class="row">
@@ -30,7 +32,7 @@
 			<div class="content">
 				<h2>Income
 					<form class="form-clear-income" method="post" action="/profile/clearIncome">
-						<button type="submit" class="btn btn-danger btn-xs" id="clear-income"><span class="glyphicon glyphicon-trash"></span> Clear Total</button>
+						<button type="submit" class="btn btn-danger btn-xs" id="clear-income"><span class="glyphicon glyphicon-trash"></span> Clear Income</button>
 					</form>
 				</h2>
 			<form class="form-income form-horizontal" role="form" method="post" action="/profile/update">
@@ -62,64 +64,59 @@
 
 			</div>
 			
-			<div class="content" >
+			<div class="content" id="expenses-breakdown">
 				<h2>Expenses Breakdown</h2>
 				<table class="table table-hover">
-				  <th >Category</th>
-				  <th >Total</th>
-				  
-				  <tr>
-					  <td>Housing</td>
-					  <td id="output-housing">$<?php echo $total['housing']?></td>
-				  </tr>
-				  
-				  <tr>
-					  <td>Utilities</td>
-					  <td id="output-utilities">$<?php echo $total['utilities']?></td>
-				  </tr>
-				  
-				  <tr>
-					  <td>Food/Dining</td>
-					  <td id="output-food">$<?php echo $total['food']?></td>
-				  </tr>
-				  
-				  <tr>
-					  <td>Automobile</td>
-					  <td id="output-automobile">$<?php echo $total['automobile']?></td>
-				  </tr>
-				  
-				  <tr>
-					  <td>Loans/Debt</td>
-					  <td id="output-debt">$<?php echo $total['debt']?></td>
-				  </tr>
-				  
-				  <tr>
-					  <td>Medical</td>
-					  <td id="output-medical">$<?php echo $total['medical']?></td>
-				  </tr>
-				  
-				  <tr>
-					  <td>Insurance</td>
-					  <td id="output-insurance">$<?php echo $total['insurance']?></td>
-				  </tr>
-				  
-				  <tr>
-					  <td>Personal Care</td>
-					  <td id="output-personal">$<?php echo $total['personal']?></td>
-				  </tr>
-				  
-				  <tr>
-					  <td>Entertainment</td>
-					  <td id="output-entertainment">$<?php echo $total['entertainment']?></td>
-				  </tr>
-				  
-				  <tr>
-					  <td>Other</td>
-					  <td id="output-other">$<?php echo $total['other']?></td>
-				  </tr>
+				  <thead>
+					  <tr class="success">
+						  <th>Category</th>
+						  <th>Total</th>
+					  <tr>
+				  </thead>
+				  <tbody>
+					  <tr>
+						  <td>Housing</td>
+						  <td id="output-housing">$<?php echo $total['housing']?></td>
+					  </tr>
+					  <tr>
+						  <td>Utilities</td>
+						  <td id="output-utilities">$<?php echo $total['utilities']?></td>
+					  </tr>
+					  <tr>
+						  <td>Food/Dining</td>
+						  <td id="output-food">$<?php echo $total['food']?></td>
+					  </tr>
+					  <tr>
+						  <td>Automobile</td>
+						  <td id="output-automobile">$<?php echo $total['automobile']?></td>
+					  </tr>
+					  <tr>
+						  <td>Loans/Debt</td>
+						  <td id="output-debt">$<?php echo $total['debt']?></td>
+					  </tr>
+					  <tr>
+						  <td>Medical</td>
+						  <td id="output-medical">$<?php echo $total['medical']?></td>
+					  </tr>
+					  <tr>
+						  <td>Insurance</td>
+						  <td id="output-insurance">$<?php echo $total['insurance']?></td>
+					  </tr>
+					  <tr>
+						  <td>Personal Care</td>
+						  <td id="output-personal">$<?php echo $total['personal']?></td>
+					  </tr>
+					  <tr>
+						  <td>Entertainment</td>
+						  <td id="output-entertainment">$<?php echo $total['entertainment']?></td>
+					  </tr>
+					  <tr>
+						  <td>Other</td>
+						  <td id="output-other">$<?php echo $total['other']?></td>
+					  </tr>
+				  </tbody>
 				</table>
-				
-				<canvas class="half" id="pie" width="400" height="400"></canvas>
+
 			</div>
 			
 			
@@ -129,7 +126,7 @@
 			<div class="content">
 				<h2>Expenses
 					<form class="form-clear-expenses" method="post" action="/profile/clearExpenses">
-						<button type="submit" class="btn btn-danger btn-xs" id="clear-expenses"><span class="glyphicon glyphicon-trash"></span> Clear Total</button>
+						<button type="submit" class="btn btn-danger btn-xs" id="clear-expenses"><span class="glyphicon glyphicon-trash"></span> Clear Expenses</button>
 					</form>
 				</h2>
 			<form class="form-expenses form-horizontal" role="form" method="post" action="/profile/update">
@@ -206,11 +203,10 @@
         <input type="text" class="form-control" name="expenses" id="total-expenses"/>
         <button class="btn btn-lg btn-primary btn-block" id="update-expenses" type="submit"><span class="glyphicon glyphicon-floppy-save"></span> Update</button>
         <div class="resultsExpenses"></div>
-    </form>
+      </form>
 				
-			</div>
-			
-		</div>
+		  </div>
+	  </div>
 		
 
 

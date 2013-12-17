@@ -61,7 +61,7 @@ $('#clear-income').click(function() {
 		type: "POST",
 		url: "/profile/clearIncome",
 		beforeSubmit: function(){
-			var answer = confirm('Are you sure you want to clear your total income?');
+			var answer = confirm('Are you sure you want to clear your income?');
 			var expenses = $('#output-expenses').html().replace("$", "");
 			
 			if (!answer) {
@@ -92,7 +92,7 @@ $('#clear-expenses').click(function() {
 		type: "POST",
 		url: "/profile/clearExpenses",
 		beforeSubmit: function(){
-			var answer = confirm('Are you sure you want to clear your total expenses?');
+			var answer = confirm('Are you sure you want to clear your expenses?');
 			if (!answer) {
 				return false;
 			}
@@ -110,18 +110,21 @@ $('#clear-expenses').click(function() {
 	$('.form-clear-expenses').ajaxForm(options);
 });
 
-
-
-
-// When page is ready, calculate percentage
-$(window).load(percentage);
-
 // When totals change, recalculate percentage
 $('.progress').bind("DOMSubtreeModified",function(){
-	  percentage();
+	percentage();
 });
 
+//When totals change, recalculate pie chart
+$('.table').bind("DOMSubtreeModified",function(){
+	loadChart();
+});
 
+// When the page is ready, load the progress bar and pie chart
+$(document).ready(function() {
+    percentage();
+    loadChart();
+});
 
 
 
@@ -129,7 +132,7 @@ $('.progress').bind("DOMSubtreeModified",function(){
  * CUSTOM FUNCTIONS
  ****************************************************************************************************/
 
-// Grab the user inputs and return a total
+// Grab the income and return a total
 function addIncome () {
 	console.log("Updated Income");
 	
@@ -155,7 +158,7 @@ function addIncome () {
 }
 
 
-//Grab the user inputs and return a total
+//Grab the expenses and return a total
 function addExpenses () {
 	console.log("Updated Expenses")
 	
@@ -188,7 +191,7 @@ function addExpenses () {
 	}	
 }
 
-
+// Add the expenses to the current expenses breakdown
 function addExpensesBreakdown() {
 	console.log("Updated Expenses Breakdown");
 	
@@ -205,6 +208,7 @@ function addExpensesBreakdown() {
 	});
 }
 
+// Output the expenses to the page
 function outputExpensesBreakdown(response) {
 	var total = $.parseJSON(response);
 	
@@ -216,6 +220,22 @@ function outputExpensesBreakdown(response) {
 	})
 }
 
+//Only load the chart if data is present
+function loadChart(){
+    var currentExpTotal = Number($('#output-expenses').html().replace("$", ""));
+    console.log(currentExpTotal)
+    
+    if(currentExpTotal == 0){
+    	$('#pie').detach();
+    } else {
+    	if($('#pie').length == 0){
+    		$('#expenses-breakdown').append('<canvas id="pie" width="400" height="400"></canvas>');
+    	}
+    	pieChart();
+    }
+}
+
+// Calculate percentages of totals
 function percentage() {
 	var income = $('#output-income').html().replace("$", "");
 	var expenses = $('#output-expenses').html().replace("$", "");
@@ -242,7 +262,6 @@ function percentage() {
 
 }
 
-
 /****************************************************************************************************
  * MOMENT.JS - DATE FUNCTION
  ****************************************************************************************************/
@@ -253,93 +272,108 @@ var currentDate = moment().format('MMMM Do YYYY, h:mm a');
  * CHART.JS - CUSTOM CHARTS
  ****************************************************************************************************/
 
-var pieData = [
-				{
-					value:  2.00,
-					color:"#FFC901",
-					label : 'Housing',
-			        labelColor : 'white',
-			        labelFontSize : '18'
-				},
-				{
-					value : 1.00,
-					color : "#E8330C",
-					label : 'Utilities',
-			        labelColor : 'white',
-			        labelFontSize : '18'
-				},
-				{
-					value : 1,
-					color : "#9100FF",
-					label : 'Food/Dining',
-			        labelColor : 'white',
-			        labelFontSize : '18'
-				},
-				{
-					value : 0,
-					color : "#0CA9E8",
-					label : 'Automobile',
-			        labelColor : 'white',
-			        labelFontSize : '18'
-				},
-				{
-					value : 0,
-					color : "#1BFF0D",
-					label : 'Loans/Debt',
-			        labelColor : 'white',
-			        labelFontSize : '18'
-				},
-				{
-					value : 1,
-					color : "#D7F700",
-					label : 'Medical',
-			        labelColor : 'white',
-			        labelFontSize : '18'
-				},
-				{
-					value : 1,
-					color : "#E88008",
-					label : 'Insurance',
-			        labelColor : 'white',
-			        labelFontSize : '18'
-				},
-				{
-					value : 1,
-					color : "#FF048F",
-					label : 'Personal Care',
-			        labelColor : 'white',
-			        labelFontSize : '18'
-				},
-				{
-					value : 0,
-					color : "#0816E8",
-					label : 'Entertainment',
-			        labelColor : 'white',
-			        labelFontSize : '18'
-				},
-				{
-					value : 0,
-					color : "#09FFA9",
-					label : 'Other',
-			        labelColor : 'white',
-			        labelFontSize : '18'
-				}
-			
-			];
+function pieChart(){
+	
+	var housing = Number($('#output-housing').html().replace("$", ""));
+	var utilities = Number($('#output-utilities').html().replace("$", ""));
+	var food = Number($('#output-food').html().replace("$", ""));
+	var automobile = Number($('#output-automobile').html().replace("$", ""));
+	var debt = Number($('#output-debt').html().replace("$", ""));
+	var medical = Number($('#output-medical').html().replace("$", ""));
+	var insurance = Number($('#output-insurance').html().replace("$", ""));
+	var personal = Number($('#output-personal').html().replace("$", ""));
+	var entertainment = Number($('#output-entertainment').html().replace("$", ""));
+	var other = Number($('#output-other').html().replace("$", ""));
 
-//var pieChart = new Chart(document.getElementById("foodPie").getContext("2d")).Pie(pieData);
+	var pieData = [
+					{
+						value:  housing,
+						color:"#FFC901",
+						label : 'Housing',
+				        labelColor : 'white',
+				        labelFontSize : '18'
+					},
+					{
+						value : utilities,
+						color : "#E8330C",
+						label : 'Utilities',
+				        labelColor : 'white',
+				        labelFontSize : '18'
+					},
+					{
+						value : food,
+						color : "#9100FF",
+						label : 'Food/Dining',
+				        labelColor : 'white',
+				        labelFontSize : '18'
+					},
+					{
+						value : automobile,
+						color : "#0CA9E8",
+						label : 'Automobile',
+				        labelColor : 'white',
+				        labelFontSize : '18'
+					},
+					{
+						value : debt,
+						color : "#1BFF0D",
+						label : 'Loans/Debt',
+				        labelColor : 'white',
+				        labelFontSize : '18'
+					},
+					{
+						value : medical,
+						color : "#D7F700",
+						label : 'Medical',
+				        labelColor : 'white',
+				        labelFontSize : '18'
+					},
+					{
+						value : insurance,
+						color : "#E88008",
+						label : 'Insurance',
+				        labelColor : 'white',
+				        labelFontSize : '18'
+					},
+					{
+						value : personal,
+						color : "#FF048F",
+						label : 'Personal Care',
+				        labelColor : 'white',
+				        labelFontSize : '18'
+					},
+					{
+						value : entertainment,
+						color : "#0816E8",
+						label : 'Entertainment',
+				        labelColor : 'white',
+				        labelFontSize : '18'
+					},
+					{
+						value : other,
+						color : "#09FFA9",
+						label : 'Other',
+				        labelColor : 'white',
+				        labelFontSize : '18'
+					}
+				
+				];
 
-/*****Pure JS******/
-//Get the context of the canvas element we want to select
-var ctx = document.getElementById("pie").getContext("2d");
-var pieChart = new Chart(ctx).Pie(pieData);
+	/*****Pure JS******/
+	//Get the context of the canvas element we want to select
+	var ctx = document.getElementById("pie").getContext("2d");
+	var pieChart = new Chart(ctx).Pie(pieData);
+	
+	/****Shortened JS****/
+	//var pieChart = new Chart(document.getElementById("pie").getContext("2d")).Pie(pieData);
 
-/*****jQuery*******/
-//Get context with jQuery - using jQuery's .get() method.
-//var ctx = $("#pie").get(0).getContext("2d");
-//This will get the first returned node in the jQuery collection.
-//var pieChart = new Chart(ctx).Pie(pieData);
-
+	/*****jQuery version*******/
+	//Get context with jQuery - using jQuery's .get() method.
+	//var ctx = $("#pie").get(0).getContext("2d");
+	//This will get the first returned node in the jQuery collection.
+	//var pieChart = new Chart(ctx).Pie(pieData);	
+	
+}
 
 
 /****************************************************************************************************
@@ -371,19 +405,6 @@ function preventPaste(e){
     var data = e.clipboardData.getData("text/plain");
     if (data.match(/\s/g)) return false;    
 }
-/*
-function isNumberKey(e){
-   var charCode = (e.which) ? e.which : event.keyCode;
-   if (charCode != 46 && charCode > 31 
-     && (charCode < 48 || charCode > 57))
-      return false;
 
-   return true;
-}
-
-form.onsubmit = function(){
-    return textarea.value.match(/^\d+(\.\d+)?$/);
-}
-*/
 
 

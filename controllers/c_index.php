@@ -20,6 +20,7 @@ class index_controller extends base_controller {
 			
 		# Now set the <title> tag
 			$this->template->title = "Don't Budge";
+			$this->template->bodyID = "index";
 	      					     		
 		# Render the view
 			echo $this->template;

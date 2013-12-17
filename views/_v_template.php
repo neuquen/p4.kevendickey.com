@@ -38,9 +38,9 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
+		<!--  <li class="active"><a href="#">Home</a></li>
+		      <li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li> -->
 				</ul>
 				<form method="post" action="/profile/logout">
 					<button class="btn btn-success navbar-btn navbar-right" type="submit"><span class="glyphicon glyphicon-log-out"></span> Log Out</button>
