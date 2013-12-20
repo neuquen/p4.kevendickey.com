@@ -88,11 +88,39 @@ class profile_controller extends base_controller {
 
 	
 	public function update(){
-	
+		
 		$_POST['user_id']  = $this->user->user_id;
 		$_POST['created']  = Time::now();
 		$_POST['modified'] = Time::now();
-	
+		
+		$q = "SELECT * FROM budgets WHERE user_id=".$this->user->user_id;
+		$total = DB::instance(DB_NAME)->select_row($q);
+		
+		# Add updated income to current income
+		if (isset($_POST['income'])){
+			$_POST['income'] = $_POST['income'] + $total['income'];
+		}
+		
+		# Add updated expenses to current expenses
+		if (isset($_POST['expenses'])){
+			$_POST['expenses'] = $_POST['expenses'] + $total['expenses'];
+			$_POST['housing'] = $_POST['housing'] + $total['housing'];
+			$_POST['utilities'] = $_POST['utilities'] + $total['utilities'];
+			$_POST['food'] = $_POST['food'] + $total['food'];
+			$_POST['automobile'] = $_POST['automobile'] + $total['automobile'];
+			$_POST['debt'] = $_POST['debt'] + $total['debt'];
+			$_POST['medical'] = $_POST['medical'] + $total['medical'];
+			$_POST['insurance'] = $_POST['insurance'] + $total['insurance'];
+			$_POST['personal'] = $_POST['personal'] + $total['personal'];
+			$_POST['entertainment'] = $_POST['entertainment'] + $total['entertainment'];
+			$_POST['other'] = $_POST['other'] + $total['other'];
+		}
+		/*
+		foreach ($_POST as $key => $value){
+			if ($key >= 3) continue;
+				$_POST[$value] = $_POST[$value] + $total[$value];
+		}*/
+
 		// Prevent XSS by converting special characters
 		function clean($string){
 			return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');

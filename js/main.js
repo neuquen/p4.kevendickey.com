@@ -14,11 +14,12 @@ $('#update-income').click(function() {
 			$('.form-income :input').val('');
 		},
 		success: function(response){
-			$('.resultsIncome').html("<span class='glyphicon glyphicon-ok'></span> Updated on " + currentDate);
+			$('.resultsIncome').html("<span class='glyphicon glyphicon-ok'></span> Updated on " + currentDate());
 			
+			console.log(response);
 			// Parse the JSON results into an array
             var total = $.parseJSON(response);
-            
+			
             // Inject the data into the page
             $('#output-income').html("$" + total['income']);
 		}		
@@ -33,15 +34,15 @@ $('#update-expenses').click(function(){
 		url: "/profile/update",
 		beforeSerialize: function(){
 			addExpenses();
-			addExpensesBreakdown();
 		},
 		beforeSubmit: function(){
 			$('.resultsExpenses').html("Updating...");
 			$('.form-expenses :input').val('');
 		},
 		success: function(response){
-			$('.resultsExpenses').html("<span class='glyphicon glyphicon-ok'></span> Updated on " + currentDate);
+			$('.resultsExpenses').html("<span class='glyphicon glyphicon-ok'></span> Updated on " + currentDate());
 			
+			console.log(response);
 			// Parse the JSON results into an array
             var total = $.parseJSON(response);
             
@@ -147,12 +148,6 @@ function addIncome () {
 	// Truncate trailing zeros
 	total = (total).toFixed(2);
 	
-	// Grab current Total
-	var currentTotal = $('#output-income').html().replace("$", "");
-	
-	// Convert strings to numbers
-	total = Number(total) + Number(currentTotal);
-	
 	// Output to hidden form field, to be sent with form
 	$('#total-income').val(total);
 }
@@ -173,39 +168,23 @@ function addExpenses () {
 	// Truncate trailing zeros
 	total = (total).toFixed(2);
 	
-	// Grab current Total
-	var currentTotal = $('#output-expenses').html().replace("$", "");
-	
-	// Convert strings to numbers
-	total = Number(total) + Number(currentTotal);
-	
 	var income = $('#output-income').html().replace("$", "");
-	income = Number(income);
+	var expenses = $('#output-expenses').html().replace("$", "");
 	
-	if (total > income){
+	income = Number(income);
+	totalExpenses = Number(expenses) + Number(total);
+	
+	console.log(income)
+	console.log(totalExpenses)
+	
+	if (totalExpenses > income){
 		alert("Someone's been spending too much money... I'm sorry but unless you are the government, you can't continue... \n\n...not that they should either...");
+		$('.form-expenses :input').val('');
 		return false;
 	} else {
 		$('#total-expenses').val(total);
 		
 	}	
-}
-
-// Add the expenses to the current expenses breakdown
-function addExpensesBreakdown() {
-	console.log("Updated Expenses Breakdown");
-	
-	var input = $('.form-expenses :input').not("input[name='expenses']");
-	
-    input.each(function(){
-	    var currentInput= $(this); 
-	    var inputId = this.id;
-	    var currentTotal = $('#output-' + inputId).text().replace("$", "");
-	    
-	    currentInput.val(function(i,val){
-	      return (1 * (val || 0) + 1 * currentTotal).toFixed(2);
-	    })
-	});
 }
 
 // Output the expenses to the page
@@ -223,7 +202,6 @@ function outputExpensesBreakdown(response) {
 //Only load the chart if data is present
 function loadChart(){
     var currentExpTotal = Number($('#output-expenses').html().replace("$", ""));
-    console.log(currentExpTotal)
     
     if(currentExpTotal == 0){
     	$('#pie').detach();
@@ -246,9 +224,6 @@ function percentage() {
 	percentExpenses = (expenses/income) * 100;
 	percentIncome = 100 - percentExpenses;
 	
-	//console.log(percentExpenses);
-	//console.log(percentIncome);
-	
 	$('.progress-bar-expenses').css("width", percentExpenses + "%");
 	$('.progress-bar-income').css("width", percentIncome + "%");
 	
@@ -265,7 +240,10 @@ function percentage() {
 /****************************************************************************************************
  * MOMENT.JS - DATE FUNCTION
  ****************************************************************************************************/
-var currentDate = moment().format('MMMM Do YYYY, h:mm a');
+function currentDate() {
+	return moment().format('MMMM Do YYYY, h:mm:ss a');
+}
+
 //var currentDate = moment().startOf('minute').fromNow();
 
 /****************************************************************************************************

@@ -1,7 +1,7 @@
 
 <div class="container profile">
 
-	<div class="starter-template">
+	<div class="intro">
 		<h1>Welcome<?php if($user) echo ', '.$user->first_name; ?></h1>
 		<p class="lead">To get started, fill out your income.  The amount of money you have to use on expenses will be based on your income.
 										Once your expenses are filled out, you can see a breakdown of how much you spend on each item.
