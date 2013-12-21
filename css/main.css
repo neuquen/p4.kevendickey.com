@@ -82,7 +82,7 @@ body {
 		font-family: 'Cinzel', serif;
 		font-weight: bold;
 	}
-	
+
 	.content-head {
 	 position: relative;
 	}
@@ -137,7 +137,6 @@ canvas {
 	display: table;
   margin: 0 auto;
 }
-
 
 /****************************************************************************
  BOOTSTRAP OVERRIDE
@@ -274,4 +273,3 @@ canvas {
 		margin: auto;
 	}	
 }
-

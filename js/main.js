@@ -16,7 +16,6 @@ $('#update-income').click(function() {
 		success: function(response){
 			$('.resultsIncome').html("<span class='glyphicon glyphicon-ok'></span> Updated on " + currentDate());
 			
-			console.log(response);
 			// Parse the JSON results into an array
             var total = $.parseJSON(response);
 			
@@ -46,7 +45,6 @@ $('#update-expenses').click(function(){
 		success: function(response){
 			$('.resultsExpenses').html("<span class='glyphicon glyphicon-ok'></span> Updated on " + currentDate());
 			
-			console.log(response);
 			// Parse the JSON results into an array
             var total = $.parseJSON(response);
             
