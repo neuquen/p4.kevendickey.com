@@ -22,6 +22,10 @@ $('#update-income').click(function() {
 			
             // Inject the data into the page
             $('#output-income').html("$" + total['income']);
+            
+            // Re-load percentage and chart
+            percentage();
+            loadChart();
 		}		
 	}
 	
@@ -50,6 +54,9 @@ $('#update-expenses').click(function(){
             $('#output-expenses').html("$" + total['expenses']);
             outputExpensesBreakdown(response);
             
+            // Re-load percentage and chart
+            percentage();
+            loadChart();
 		}		
 	}
 	
@@ -81,6 +88,10 @@ $('#clear-income').click(function() {
             
             // Inject the data into the page
             $('#output-income').html("$" + total['expenses']);
+            
+            // Re-load percentage and chart
+            percentage();
+            loadChart();
 		}		
 	}
 	
@@ -105,20 +116,14 @@ $('#clear-expenses').click(function() {
             // Inject the data into the page
             $('#output-expenses').html("$" + total['expenses']);
             outputExpensesBreakdown(response);
+            
+            // Re-load percentage and chart
+            percentage();
+            loadChart();
 		}		
 	}
 	
 	$('.form-clear-expenses').ajaxForm(options);
-});
-
-// When totals change, recalculate percentage
-$('.progress').bind("DOMSubtreeModified",function(){
-	percentage();
-});
-
-//When totals change, recalculate pie chart
-$('.table').bind("DOMSubtreeModified",function(){
-	loadChart();
 });
 
 // When the page is ready, load the progress bar and pie chart
@@ -174,9 +179,6 @@ function addExpenses () {
 	income = Number(income);
 	totalExpenses = Number(expenses) + Number(total);
 	
-	console.log(income)
-	console.log(totalExpenses)
-	
 	if (totalExpenses > income){
 		alert("Someone's been spending too much money... I'm sorry but unless you are the government, you can't continue... \n\n...not that they should either...");
 		$('.form-expenses :input').val('');
@@ -186,6 +188,7 @@ function addExpenses () {
 		
 	}	
 }
+
 
 // Output the expenses to the page
 function outputExpensesBreakdown(response) {
@@ -226,7 +229,7 @@ function percentage() {
 	
 	$('.progress-bar-expenses').css("width", percentExpenses + "%");
 	$('.progress-bar-income').css("width", percentIncome + "%");
-	
+		
 	if (percentExpenses > 50 && percentExpenses < 80){
 		$('.progress-bar-expenses').removeClass('progress-bar-success').addClass('progress-bar-warning');
 	} else if (percentExpenses >= 80){
@@ -371,7 +374,7 @@ window.onload = function(){
     //var signup = $('#signup')[0];
     signup.onkeydown = preventSpace;
     signup.onpaste = preventPaste;
-};
+}
 
 function preventSpace(e){
     var e = e || event;

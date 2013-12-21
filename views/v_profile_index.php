@@ -30,11 +30,12 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="content">
-				<h2>Income
+				<div class="content-head">
+				<h2>Income</h2>
 					<form class="form-clear-income" method="post" action="/profile/clearIncome">
 						<button type="submit" class="btn btn-danger btn-xs" id="clear-income"><span class="glyphicon glyphicon-trash"></span> Clear Income</button>
 					</form>
-				</h2>
+				</div>
 			<form class="form-income form-horizontal" role="form" method="post" action="/profile/update">
         <div class="form-group">
             <label for="paycheck" class="control-label col-sm-3">Paycheck/Salary</label>
@@ -71,7 +72,7 @@
 					  <tr class="success">
 						  <th>Category</th>
 						  <th>Total</th>
-					  <tr>
+					  </tr>
 				  </thead>
 				  <tbody>
 					  <tr>
@@ -124,11 +125,12 @@
 		
 		<div class="col-md-6">
 			<div class="content">
-				<h2>Expenses
+				<div class="content-head">
+				<h2>Expenses</h2>
 					<form class="form-clear-expenses" method="post" action="/profile/clearExpenses">
 						<button type="submit" class="btn btn-danger btn-xs" id="clear-expenses"><span class="glyphicon glyphicon-trash"></span> Clear Expenses</button>
 					</form>
-				</h2>
+				</div>
 			<form class="form-expenses form-horizontal" role="form" method="post" action="/profile/update">
         <div class="form-group">
             <label for="housing" class="control-label col-sm-3">Housing</label>

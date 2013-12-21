@@ -10,7 +10,7 @@
 			<p class="lead">A budget calculator to help you save time and money.</p>
 		</div>
 		<div class="col-md-4" id="money">
-			<img src="/img/money.png" class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+			<img src="/img/money.png" class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Money"/>
 		</div>
 	</div>
 </div>
