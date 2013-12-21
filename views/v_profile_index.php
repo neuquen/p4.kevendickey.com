@@ -21,7 +21,7 @@
 						<span id="output-expenses">$<?php echo $total['expenses']?></span>
 					</div>
 					<div class="progress-bar progress-bar-income" role="progressbar">
-						<div style="color: black;">Income</div>
+						<div>Income</div>
 						<span id="output-income">$<?php echo $total['income']?></span>
 					</div>
 				</div>

@@ -127,6 +127,10 @@ body {
 	  width: 100%;
 	}
 	
+	.progress-bar-income div {
+	 color: black;
+	}
+	
 	#total-income,
 	#total-expenses {
 	 display: none;

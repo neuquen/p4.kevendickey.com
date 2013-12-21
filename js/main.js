@@ -225,8 +225,8 @@ function percentage() {
 	percentExpenses = (expenses/income) * 100;
 	percentIncome = 100 - percentExpenses;
 	
-	var stuff = $('.progress-bar-expenses').css("width", percentExpenses + "%");
-	var things = $('.progress-bar-income').css("width", percentIncome + "%");
+	$('.progress-bar-expenses').css("width", percentExpenses + "%");
+	$('.progress-bar-income').css("width", percentIncome + "%");
 		
 	if (percentExpenses > 50 && percentExpenses < 80){
 		$('.progress-bar-expenses').removeClass('progress-bar-success').addClass('progress-bar-warning');
@@ -384,17 +384,3 @@ function preventPaste(e){
     var data = e.clipboardData.getData("text/plain");
     if (data.match(/\s/g)) return false;    
 }
-
-
-/******
- * Font Size
-
-function fontsize() {
-    var fontSize = $(".progress-bar-expenses").width() * .25; // 10% of container width
-    console.log(fontSize);
-    $(".progress span").css('font-size', fontSize);
-};
-$(window).resize(fontsize);
-$(document).ready(fontsize);
-
- */

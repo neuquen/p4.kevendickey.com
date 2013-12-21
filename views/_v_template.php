@@ -45,8 +45,7 @@
 				<form method="post" action="/profile/logout">
 					<button class="btn btn-success navbar-btn navbar-right" type="submit"><span class="glyphicon glyphicon-log-out"></span> Log Out</button>
 				</form>
-			</div>
-			<!--/.nav-collapse -->
+			</div><!--/.nav-collapse -->
 		</div>
 	</div>
 	
