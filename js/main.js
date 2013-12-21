@@ -225,8 +225,8 @@ function percentage() {
 	percentExpenses = (expenses/income) * 100;
 	percentIncome = 100 - percentExpenses;
 	
-	$('.progress-bar-expenses').css("width", percentExpenses + "%");
-	$('.progress-bar-income').css("width", percentIncome + "%");
+	var stuff = $('.progress-bar-expenses').css("width", percentExpenses + "%");
+	var things = $('.progress-bar-income').css("width", percentIncome + "%");
 		
 	if (percentExpenses > 50 && percentExpenses < 80){
 		$('.progress-bar-expenses').removeClass('progress-bar-success').addClass('progress-bar-warning');
@@ -362,14 +362,14 @@ function pieChart(){
 // Only allows numbers and '.' in budget input forms (ex, 0123. 012.3 01.23 0.123 or .0123) using regex
 $( ".input-group input" ).attr("pattern", '\\d+(\\.\\d*)?|\\.\\d+').attr('title','Only positive numbers in decimal form');
 
-// Generic email regex validation to allow certain formatting for email addresses
+// Generic email regex validation to only allow certain formatting for email addresses
 $( ".form-signup input[type=email]" ).attr("pattern", "[a-z0-9!#$%&'*+/=?^_{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?").attr('title','Ex. username@emailaddress.com');
 
 
 // Prevents empty fields in signup form
 window.onload = function(){
-    var signup = document.getElementById('signup');
-    //var signup = $('#signup')[0];
+    //var signup = document.getElementById('signup');
+    var signup = $('#signup')[0];
     signup.onkeydown = preventSpace;
     signup.onpaste = preventPaste;
 }
@@ -386,4 +386,15 @@ function preventPaste(e){
 }
 
 
+/******
+ * Font Size
 
+function fontsize() {
+    var fontSize = $(".progress-bar-expenses").width() * .25; // 10% of container width
+    console.log(fontSize);
+    $(".progress span").css('font-size', fontSize);
+};
+$(window).resize(fontsize);
+$(document).ready(fontsize);
+
+ */

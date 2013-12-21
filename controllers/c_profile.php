@@ -115,11 +115,6 @@ class profile_controller extends base_controller {
 			$_POST['entertainment'] = $_POST['entertainment'] + $total['entertainment'];
 			$_POST['other'] = $_POST['other'] + $total['other'];
 		}
-		/*
-		foreach ($_POST as $key => $value){
-			if ($key >= 3) continue;
-				$_POST[$value] = $_POST[$value] + $total[$value];
-		}*/
 
 		// Prevent XSS by converting special characters
 		function clean($string){

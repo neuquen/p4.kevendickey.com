@@ -102,18 +102,22 @@ body {
 }
 
 	.progress span {
-	    display: inline-block;
-	    padding-top: 43px;
-	    color: #292929;
-	    font-weight: bold;
-	    font-size: 4em;
-	    font-family: 'Cinzel', serif;
-	    text-align: center;
-	    width: 100%;
+    display: inline-block;
+    padding-top: 25px;
+    color: #292929;
+    font-weight: bold;
+    font-size: 4em;
+    /*font-size: 3vw; % of view-port width*/
+    font-family: 'Cinzel', serif;
+    text-align: center;
+	}
+	
+	.progress div {
+	 font-weight: bold;
 	}
 
 	.progress-bar-expenses {
-	 width: 0%;
+	  width: 0%;
 	}
 	
 	.progress-bar-income {

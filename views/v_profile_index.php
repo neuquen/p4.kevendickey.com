@@ -17,9 +17,11 @@
 				<h2>Summary</h2>
 				<div class="progress text-center">
 					<div class="progress-bar progress-bar-expenses" role="progressbar">
+						<div>Expenses</div>
 						<span id="output-expenses">$<?php echo $total['expenses']?></span>
 					</div>
 					<div class="progress-bar progress-bar-income" role="progressbar">
+						<div style="color: black;">Income</div>
 						<span id="output-income">$<?php echo $total['income']?></span>
 					</div>
 				</div>
@@ -208,17 +210,8 @@
       </form>
 				
 		  </div>
-	  </div>
-		
-
-
-
-		
-		
-		
-	</div>
-
-
+	  </div>	<!-- /.col-md-6 -->
+	</div> <!-- /.row -->
 </div><!-- /.container -->
 
 
