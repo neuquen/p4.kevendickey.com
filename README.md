@@ -17,8 +17,8 @@ representation of each expense.
 **Current Features:**
 - Sign up
 - Log in/Log out
-- Add total income
-- Add total and individual expenses
+- Add and save total income
+- Add and save total and individual expenses
 - Clear income/expenses
 - See visual representation of totals/expenses (progress bar)
 - See visual representation of expenses breakdown (pie chart)
@@ -45,7 +45,8 @@ adding new features such as:
 
 - Edit or clear individual expenses (probably the former)
 - Add/remove income and expenses fields or have the ability to edit the current ones
-- Rearrange the expenses/income fields in order of preference or importance
+- Give the user the ability to rearrange the expenses/income fields in order of 
+preference or importance
 - Find a pie chart with more features (I used Chart.js and it isn't enough)
 - Creating a dashboard with multiple different charts to display summary info
 - Creating a goals page where the user can input income/expenses and goals for
